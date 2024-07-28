@@ -80,7 +80,7 @@ function Header() {
             </ListItem>
           ))}
         </List>
-        {isAuthenticated ? (
+        {/* {isAuthenticated ? (
           <Button
             sx={{ textTransform: "none" }}
             variant="outlined"
@@ -91,7 +91,7 @@ function Header() {
           </Button>
         ) : (
           <Login setMobileOpen={setMobileOpen} />
-        )}
+        )} */}
         <Button
           sx={{ textTransform: "none", mt: 2 }}
           variant="outlined"
@@ -156,7 +156,7 @@ function Header() {
                     {route.name}
                   </Button>
                 ))}
-                {isAuthenticated ? (
+                {/* {isAuthenticated ? (
                   <div>
                     <Typography sx={{ mr: 2 }}>{user?.name}</Typography>
                     <IconButton
@@ -199,7 +199,7 @@ function Header() {
                   </div>
                 ) : (
                   <Login setMobileOpen={setMobileOpen} />
-                )}
+                )} */}
                 <Button
                   sx={{ textTransform: "none" }}
                   variant="outlined"
