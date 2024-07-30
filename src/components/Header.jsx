@@ -64,7 +64,9 @@ function Header() {
   const drawer = (
     <Box sx={{ textAlign: "center" }}>
       <Typography variant="h6" sx={{ my: 2 }}>
-        <img src="/logo.png" alt="Logo" width={150} className="m-3" />
+        <Link to={"/"}>
+          <img src="/logo.png" alt="Logo" width={150} className="m-3" />
+        </Link>
       </Typography>
       <div className="flex flex-col items-start ml-2">
         <List>
@@ -121,7 +123,10 @@ function Header() {
           <div className="md:px-[20px] xl:px-[200px]">
             <Toolbar>
               <Box sx={{ flexGrow: 1, display: "flex", alignItems: "center" }}>
-                <img src="/logo.png" alt="Logo" width={150} />
+                <Link to={"/"}>
+                  {" "}
+                  <img src="/logo.png" alt="Logo" width={150} />
+                </Link>
               </Box>
               <IconButton
                 color="inherit"
@@ -211,7 +216,9 @@ function Header() {
                 <Box
                   sx={{ flexGrow: 1, display: "flex", alignItems: "center" }}
                 >
-                  <img src="/naturelogo.png" alt="Logo" width={190} />
+                  <Link to={"/"}>
+                    <img src="/naturelogo.png" alt="Logo" width={190} />
+                  </Link>
                 </Box>
               </Box>
             </Toolbar>
