@@ -125,7 +125,7 @@ function SafariOption({
                     onClick();
                   }}
                 >
-                  Choose Plan
+                  Select Plan
                 </Button>
               </div>
             </div>
