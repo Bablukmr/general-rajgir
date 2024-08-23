@@ -21,7 +21,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import dayjs from "dayjs";
 import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { Edit, Save } from "@mui/icons-material";
+import { ArrowLeft, Edit, Save } from "@mui/icons-material";
 import CheckMobileHook480 from "../components/checkMobile";
 import BookingInfo from "../components/PrintTicketGenaral";
 import ReactToPrint from "react-to-print";
@@ -32,6 +32,7 @@ const SecondPage = ({
   setAdmin,
   setPersons,
   handleNextPage,
+  handlePreviousPage,
   configurations,
   holidays,
   persons,
@@ -395,9 +396,8 @@ const SecondPage = ({
               </p>
             )}
 
-            <div className="flex flex-col items-start p-4 bg-white shadow-md rounded-lg">
+            <div className="flex flex-col items-start p-4 bg-white  rounded-lg">
               <p className="text-[#4691F2] text-lg">Visitor Details</p>
-
               <div className="flex gap-2 mt-2">
                 <span className="inline-block px-3 py-1 bg-[#e0eafc] text-[#4691F2] rounded-full text-sm font-semibold">
                   Adults: {remainingAdults}/{adults}
@@ -408,18 +408,24 @@ const SecondPage = ({
               </div>
 
               <div className="">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-2 ">
+                <div className="grid grid-cols-1 gap-1 mt-2">
+                  {adultDetails.length > 0 && (
+                    <span className="w-full border-b border-dashed border-[#b2aeae]">
+                      Adults
+                    </span>
+                  )}
                   {adultDetails.map((adult, index) => (
                     <div
                       key={index}
-                      className="flex bg-white shadow-md rounded-lg"
+                      className="flex bg-white border rounded-lg"
                     >
-                      <div className="p-3">
-                        <div className="flex justify-between items-center">
-                          <p className="text-lg font-normal">
-                            Adult {index + 1}
+                      <div className="px-2 py-[2px] ">
+                        <div className=" gap-2 flex justify-between items-center">
+                          <p className="flex">
+                           Name: {adult.name}
                           </p>
-
+                          <p>Gender: {adult.gender}</p>
+                          <p>Age: {adult.age}</p>
                           <div
                             onClick={() => handleOpenAddPerson("adult", index)}
                             className="text-blue-700 p-2 cursor-pointer"
@@ -427,38 +433,32 @@ const SecondPage = ({
                             <Edit />
                           </div>
                         </div>
-                        <div className="flex gap-2">
-                          <p className="flex">Name: {adult.name}</p>
-                          <p>Gender: {adult.gender}</p>
-                          <p>Age: {adult.age}</p>
-                        </div>
                       </div>
                     </div>
                   ))}
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mt-3">
+                <div className="grid grid-cols-1 gap-1 mt-2">
+                  {childDetails.length > 0 && (
+                    <span className="w-full border-b border-dashed border-[#b2aeae]">
+                      Childs
+                    </span>
+                  )}
                   {childDetails.map((child, index) => (
                     <div
                       key={index}
-                      className="flex bg-white shadow-md rounded-lg"
+                      className="flex bg-white shadow-sm border rounded-lg"
                     >
-                      <div className="p-3">
-                        <div className="flex justify-between items-center">
-                          <p className="text-lg font-normal">
-                            Child {index + 1}
-                          </p>
-
+                      <div className="px-2 py-[2px]">
+                        <div className="flex justify-between items-center gap-2">
+                          <p className="flex">Name: {child.name}</p>
+                          <p>Gender: {child.gender}</p>
+                          <p>Age: {child.age}</p>
                           <div
                             onClick={() => handleOpenAddPerson("child", index)}
                             className="text-blue-700 p-2 cursor-pointer"
                           >
                             <Edit />
                           </div>
-                        </div>
-                        <div className="flex gap-2">
-                          <p className="flex">Name: {child.name}</p>
-                          <p>Gender: {child.gender}</p>
-                          <p>Age: {child.age}</p>
                         </div>
                       </div>
                     </div>
@@ -540,7 +540,7 @@ const SecondPage = ({
                 </DialogActions>
               </Dialog>
             </div>
-            <div className="flex flex-col items-start p-4 bg-white shadow-md rounded-lg">
+            <div className="flex flex-col items-start p-4 bg-white shadow-sm   rounded-lg">
               <p className="text-[#4691F2] mb-2 text-lg">
                 Communication Details
               </p>
@@ -622,8 +622,18 @@ const SecondPage = ({
                 </div>
               </div>
             </div>
-            <div className="mt-5 flex justify-center">
+            <div className=" flex justify-center">
               {selectedPackage === 1 ? (
+                  <div className="flex w-full items-center justify-center gap-2 p-4 bg-white shadow-sm rounded-lg">
+                <Button
+                  sx={{ textTransform: "none" }}
+                  variant="contained"
+                  color="primary"
+                  onClick={handlePreviousPage()}
+                  startIcon={<ArrowLeft />}
+                >
+                  Back
+                </Button>
                 <Button
                   sx={{ textTransform: "none" }}
                   variant="contained"
@@ -633,6 +643,7 @@ const SecondPage = ({
                 >
                   Save & Continue
                 </Button>
+                </div>
               ) : (
                 <div className="mb-2">
                   <Button
