@@ -425,13 +425,7 @@ const SecondPage = ({
                     >
                       <div className="px-2 py-[2px] ">
                         <div className=" gap-2 flex justify-between items-center">
-<<<<<<< HEAD
                           <p className="flex">Name: {adult.name}</p>
-=======
-                          <p className="flex">
-                           Name: {adult.name}
-                          </p>
->>>>>>> c4eae1a0e1356d4378788f1ef3c056be9705cebd
                           <p>Gender: {adult.gender}</p>
                           <p>Age: {adult.age}</p>
                           <div
@@ -632,7 +626,6 @@ const SecondPage = ({
             </div>
             <div className=" flex justify-center">
               {selectedPackage === 1 ? (
-<<<<<<< HEAD
                 <div className="flex w-full items-center justify-center gap-2 p-4 bg-white shadow-sm rounded-lg">
                   <Button
                     sx={{ textTransform: "none" }}
@@ -652,27 +645,6 @@ const SecondPage = ({
                   >
                     Save & Continue
                   </Button>
-=======
-                  <div className="flex w-full items-center justify-center gap-2 p-4 bg-white shadow-sm rounded-lg">
-                <Button
-                  sx={{ textTransform: "none" }}
-                  variant="contained"
-                  color="primary"
-                  onClick={handlePreviousPage}
-                  startIcon={<ArrowLeft />}
-                >
-                  Back
-                </Button>
-                <Button
-                  sx={{ textTransform: "none" }}
-                  variant="contained"
-                  color="primary"
-                  onClick={handleSubmit}
-                  startIcon={<Save />}
-                >
-                  Save & Continue
-                </Button>
->>>>>>> c4eae1a0e1356d4378788f1ef3c056be9705cebd
                 </div>
               ) : (
                 <div className="flex w-full items-center justify-center gap-2 p-4 bg-white shadow-sm rounded-lg">
@@ -691,7 +663,7 @@ const SecondPage = ({
                     variant="contained"
                     color="success"
                     
-                    className="my-4 px-3"
+                    // className="my-4 px-3"
                   >
                     Pay Now
                   </Button>
