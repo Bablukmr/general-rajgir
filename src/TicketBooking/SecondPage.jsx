@@ -629,7 +629,7 @@ const SecondPage = ({
                   sx={{ textTransform: "none" }}
                   variant="contained"
                   color="primary"
-                  onClick={handlePreviousPage()}
+                  onClick={handlePreviousPage}
                   startIcon={<ArrowLeft />}
                 >
                   Back
