@@ -412,7 +412,9 @@ function FirstPage({
           </Card>
         </div>
 
-        <div className="w-full flex justify-center mt-6">
+        <div className="w-full flex justify-center">
+        <div className="flex w-full flex-col items-center p-4 bg-white shadow-sm rounded-lg">
+              
           <Button
             sx={{ textTransform: "none" }}
             variant="contained"
@@ -423,6 +425,7 @@ function FirstPage({
           >
             Proceed
           </Button>
+          </div>
         </div>
       </div>
     </>
