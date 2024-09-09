@@ -180,6 +180,28 @@ const SecondPage = ({
       }
     });
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if(!emailPattern.test(communicationDetails.email)){
+      alert("Please Fill correct Email")
+      return
+    }
+    if(communicationDetails.mobile.length !== 10){
+      alert("Please Fill correct Mobile Number")
+      return
+    }
+if(!identityProof.person){
+  alert("Please Fill correct identityProof")
+  return
+}
+if( !identityProof.proofType){
+  alert("Please Fill correct proofType")
+  return
+}
+if( !identityProof.proofNumber){
+  alert("Please Fill correct proof Number")
+  return
+}
+
+
     if (
       !communicationDetails.email ||
       !emailPattern.test(communicationDetails.email)
@@ -205,7 +227,7 @@ const SecondPage = ({
 
   const handleSubmit = () => {
     if (!validateDetails()) {
-      alert("Please fill all the required fields correctly.");
+      // alert("Please fill all the required fields correctly.");
       return;
     }
     if (identityProof.proofType === "bank") {
