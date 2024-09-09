@@ -42,7 +42,7 @@ function SafariOption({
     >
       <div
         className={`w-full h-full mb-2 ${
-          isSelected ? "bg-[#f4f1f1]" : "bg-white"
+          isSelected ? "bg-[#f4f1f1] " : "bg-white"
         }`}
       >
         {isPopular ? (
@@ -390,7 +390,7 @@ function FirstPage({
               isPopular={pkg.is_popular}
               tooltipDetails={`Price of Per Adults ₹${pkg.adult_price} and for Per Child ₹${pkg.child_price}`}
               colorClass={
-                selectedPackage === pkg.id ? "border-blue-500" : "border-white"
+                selectedPackage === pkg.id ? "border-blue-500 border-2" : "border-white"
               }
               isSelected={selectedPackage === pkg.id}
               onClick={() =>
