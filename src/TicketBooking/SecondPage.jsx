@@ -625,28 +625,28 @@ const SecondPage = ({
               </div>
             </div>
             <div className=" flex justify-center">
-              {selectedPackage === 1 ? (
-                <div className="flex w-full items-center justify-center gap-2 p-4 bg-white shadow-sm rounded-lg">
-                  <Button
-                    sx={{ textTransform: "none" }}
-                    variant="contained"
-                    color="error"
-                    onClick={handleBack}
-                    startIcon={<ArrowLeft />}
-                  >
-                    Back
-                  </Button>
-                  <Button
-                    sx={{ textTransform: "none" }}
-                    variant="contained"
-                    color="primary"
-                    onClick={handleSubmit}
-                    startIcon={<Save />}
-                  >
-                    Save & Continue
-                  </Button>
-                </div>
-              ) : (
+              {/* {selectedPackage === 1 ? ( */}
+              <div className="flex w-full items-center justify-center gap-2 p-4 bg-white shadow-sm rounded-lg">
+                <Button
+                  sx={{ textTransform: "none" }}
+                  variant="contained"
+                  color="error"
+                  onClick={handleBack}
+                  startIcon={<ArrowLeft />}
+                >
+                  Back
+                </Button>
+                <Button
+                  sx={{ textTransform: "none" }}
+                  variant="contained"
+                  color="primary"
+                  onClick={handleSubmit}
+                  startIcon={<Save />}
+                >
+                  Save & Continue
+                </Button>
+              </div>
+              {/* ) : (
                 <div className="flex w-full items-center justify-center gap-2 p-4 bg-white shadow-sm rounded-lg">
                   <Button
                     sx={{ textTransform: "none" }}
@@ -668,13 +668,13 @@ const SecondPage = ({
                     Pay Now
                   </Button>
                 </div>
-              )}
+              )} */}
             </div>
           </div>
         </div>
       ) : (
         <div className="flex flex-col md:px-[20px] xl:px-[200px] w-full justify-center items-start p-4 bg-gray-100 mt-16">
-          <div className="w-full p-4 bg-white shadow-lg rounded-lg mb-4">
+          {/* <div className="w-full p-4 bg-white shadow-lg rounded-lg mb-4">
             <BookingInfo ref={printRef} data={bookingData} />
           </div>
           <ReactToPrint
@@ -686,7 +686,7 @@ const SecondPage = ({
             content={() => printRef.current}
             documentTitle="Ticket Booking Confirmation"
             pageStyle="@media print { body { margin: 0; } }"
-          />
+          /> */}
         </div>
       )}
     </>

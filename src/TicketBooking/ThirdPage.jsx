@@ -7,8 +7,8 @@ import BookingInfo from "../components/PrintTicketGenaral";
 import ReactToPrint from "react-to-print";
 import axios from "axios";
 import dayjs from "dayjs";
-
-function AttractionCard({
+import AttractionCard from "../components/Attractioncard";
+function AttractionCards({
   title,
   price,
   description,
@@ -142,7 +142,7 @@ const TicketSummary = ({
   selectedTimeSlotString,
   visitingDate,
   adults,
-  children,
+  children,totalExperiancePrice
 }) => (
   <Card className="flex-1 m-4 p-4">
     <CardContent className="flex flex-col gap-1">
@@ -164,7 +164,7 @@ const TicketSummary = ({
         variant="h6"
         className="text-start text-2xl font-bold text-green-600"
       >
-        Total Price: ₹{totalPrice}
+        Total Price: ₹{totalExperiancePrice}
       </Typography>
       <Button
         sx={{ textTransform: "none" }}
@@ -210,6 +210,8 @@ function ThirdPage({
   selectedPAckageName,
   selectedTimeSlotString,
   packages,
+  totalExperiancePrice, 
+  setTotalExperiancePrice
 }) {
   // console.log(selectedPAckageName,"selectedPackageName");
   const [selectedExperienceCounts, setSelectedExperienceCounts] = useState({
@@ -221,7 +223,7 @@ function ThirdPage({
   const [bookingData, setBookingData] = useState(null);
   const [error, setError] = useState(null);
   const printRef = useRef();
-
+  // const [totalExperiancePrice, setTotalExperiancePrice] = useState(0);
   useEffect(() => {
     if (packages && packages.length > 0) {
       const selectedPackage = packages.find((pkg) => pkg.id === 1);
@@ -271,7 +273,7 @@ function ThirdPage({
         booking_type: 1,
         // nationality: "ind",
         term_condition: 1,
-        total_amount: calculateTotalPrice(),
+        total_amount: totalExperiancePrice,
       }).toString();
 
       const response = await axios.post(
@@ -309,34 +311,48 @@ function ThirdPage({
   };
 
   const totalPrice = calculateTotalPrice();
-
+  const [selectedExperiences, setSelectedExperiences] = useState({
+    adults: [],
+    children: [],
+  });
+  // const [totalExperiancePrice, setTotalExperiancePrice] = useState(0);
   return (
-    <div className="flex flex-col md:px-[20px] xl:px-[200px] md:flex-row justify-center items-start p-4 bg-gray-100 mt-16">
+    <div className="flex w-full flex-col md:px-[20px] lg:flex-row justify-center items-start p-4 bg-gray-100 mt-16">
       {!isPaymentSuccessful ? (
         <>
           {safariExperience.length > 0 && (
-            <>
-              <AttractionCard
-                title="Attraction For Adults"
-                price="₹ 150"
-                description="Per Person"
-                safariExperience={safariExperience}
-                selectedExperienceCounts={selectedExperienceCounts}
-                setSelectedExperienceCounts={setSelectedExperienceCounts}
-                persons={persons}
-                type="adults"
-              />
-              <AttractionCard
-                title="Attraction For Children"
-                price="Free"
-                description="Children under 6yr"
-                safariExperience={safariExperience}
-                selectedExperienceCounts={selectedExperienceCounts}
-                setSelectedExperienceCounts={setSelectedExperienceCounts}
-                persons={persons}
-                type="children"
-              />
-            </>
+             <div
+             className={`${
+               selectedPackage === null ? "hidden" : "block"
+             } p-2 mt-2 w-full md:w-[100%] lg:w-[70%] flex items-start justify-between gap-2 flex-col md:flex-row`}
+           >
+             <AttractionCard
+               totalExperiancePrice={totalExperiancePrice}
+               setTotalExperiancePrice={setTotalExperiancePrice}
+               title="Attraction For Adults"
+               price="₹ 150"
+               no_adult={persons.adults}
+               no_children={persons.children}
+               description="Per Person"
+               type="adults"
+               selectedPackage={selectedPackage}
+               selectedExperiences={selectedExperiences}
+               setSelectedExperiences={setSelectedExperiences}
+             />
+             <AttractionCard
+               totalExperiancePrice={totalExperiancePrice}
+               setTotalExperiancePrice={setTotalExperiancePrice}
+               title="Attraction For Children"
+               price="Free"
+               no_adult={persons.adults}
+               no_children={persons.children}
+               description="Children under 6yr"
+               type="children"
+               selectedPackage={selectedPackage}
+               selectedExperiences={selectedExperiences}
+               setSelectedExperiences={setSelectedExperiences}
+             />
+           </div>
           )}
           <TicketSummary
             totalPrice={totalPrice}
@@ -347,8 +363,10 @@ function ThirdPage({
             visitingDate={visitingDate}
             adults={persons.adults}
             children={persons.children}
+            totalExperiancePrice={totalExperiancePrice}
+            setTotalExperiancePrice={setTotalExperiancePrice}
           />
-          {error && <div className="text-red-500 mt-4">{error}</div>}
+          {/* {error && <div className="text-red-500 mt-4">{error}</div>} */}
         </>
       ) : (
         <div className="flex flex-col">

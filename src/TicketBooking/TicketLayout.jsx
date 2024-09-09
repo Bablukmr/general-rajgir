@@ -12,7 +12,7 @@ import { Route, Routes } from "react-router-dom";
 function TicketLayout() {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const bookingfor = isAuthenticated ? 2 : 1;
-
+  const [totalExperiancePrice, setTotalExperiancePrice] = useState(0);
   const [admin, setAdmin] = useState(false);
   const [currentPage, setCurrentPage] = useState("first");
   const [selectedPackage, setSelectedPackage] = useState(null);
@@ -293,6 +293,8 @@ function TicketLayout() {
             setClildprice={setClildprice}
             selectedPAckageName={selectedPAckageName}
             setSelectedPAckageName={setSelectedPAckageName}
+            totalExperiancePrice={totalExperiancePrice}
+            setTotalExperiancePrice={setTotalExperiancePrice}
           />
         )}
       </div>
