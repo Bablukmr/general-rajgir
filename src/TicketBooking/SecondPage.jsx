@@ -122,13 +122,8 @@ const SecondPage = ({
     if (addPersonType === "adult") {
       const updatedAdults = [...adultDetails];
       if (age < 18) {
-        showAlert({
-          title: "Failed!",
-          text: "Please enter age more than 18",
-          icon: "error",
-          timer: 3000,
-        });
-        // alert("Please enter age more than 18");
+        
+        alert("Please enter age more than 18");
         return;
       }
       if (currentVisitorIndex !== null) {
@@ -143,13 +138,8 @@ const SecondPage = ({
     } else if (addPersonType === "child") {
       const updatedChildren = [...childDetails];
       if (age >= 18) {
-        showAlert({
-          title: "Failed!",
-          text: "Please enter age Less than 18",
-          icon: "error",
-          timer: 3000,
-        });
-        // alert("Please enter age Less than 18");
+       
+        alert("Please enter age Less than 18");
         return;
       }
       if (currentVisitorIndex !== null) {
