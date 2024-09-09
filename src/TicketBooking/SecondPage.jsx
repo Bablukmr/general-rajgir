@@ -479,13 +479,7 @@ const SecondPage = ({
                 </div>
               </AccordionDetails>
             </Accordion>
-            {selectedPackage === 1 ? (
-              ""
-            ) : (
-              <p className="text-start text-2xl font-bold text-green-600">
-                Total Price: ₹{totalPrice}
-              </p>
-            )}
+           
 
             <div className="flex flex-col items-start p-4 bg-white  rounded-lg">
               <p className="text-[#4691F2] text-lg">Visitor Details</p>
