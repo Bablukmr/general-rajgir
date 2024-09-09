@@ -179,28 +179,36 @@ const SecondPage = ({
         valid = false;
       }
     });
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if(!emailPattern.test(communicationDetails.email)){
-      alert("Please Fill correct Email")
-      return
-    }
-    if(communicationDetails.mobile.length !== 10){
-      alert("Please Fill correct Mobile Number")
-      return
-    }
-if(!identityProof.person){
-  alert("Please Fill correct identityProof")
-  return
-}
-if( !identityProof.proofType){
-  alert("Please Fill correct proofType")
-  return
-}
-if( !identityProof.proofNumber){
-  alert("Please Fill correct proof Number")
-  return
-}
 
+    if (remainingAdults !== 0) {
+      alert(`Please Add More ${remainingAdults} Adults`);
+      return;
+    }
+    if (remainingChildren !== 0) {
+      alert(`Please Add More ${remainingChildren} Adults`);
+      return;
+    }
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(communicationDetails.email)) {
+      alert("Please Fill correct Email");
+      return;
+    }
+    if (communicationDetails.mobile.length !== 10) {
+      alert("Please Fill correct Mobile Number");
+      return;
+    }
+    if (!identityProof.person) {
+      alert("Please Fill correct identityProof");
+      return;
+    }
+    if (!identityProof.proofType) {
+      alert("Please Fill correct proofType");
+      return;
+    }
+    if (!identityProof.proofNumber) {
+      alert("Please Fill correct proof Number");
+      return;
+    }
 
     if (
       !communicationDetails.email ||
