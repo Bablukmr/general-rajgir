@@ -54,6 +54,7 @@ const SecondPage = ({
   packages,
   adultsPrice,
   childPrice,
+  showAlert
 }) => {
   const adults = persons?.adults || 0;
   const children = persons?.children || 0;
@@ -108,14 +109,26 @@ const SecondPage = ({
     const { name, gender, age } = visitorDetails;
 
     if (!name || !gender || !age || isNaN(age) || age <= 0) {
-      alert("Please fill in all fields correctly for the visitor.");
+      showAlert({
+        title: "Failed!",
+        text: "Please fill in all fields correctly for the visitor.",
+        icon: "error",
+        timer: 3000,
+      });
+      // alert("Please fill in all fields correctly for the visitor.");
       return;
     }
 
     if (addPersonType === "adult") {
       const updatedAdults = [...adultDetails];
       if (age < 18) {
-        alert("Please enter age more than 18");
+        showAlert({
+          title: "Failed!",
+          text: "Please enter age more than 18",
+          icon: "error",
+          timer: 3000,
+        });
+        // alert("Please enter age more than 18");
         return;
       }
       if (currentVisitorIndex !== null) {
@@ -130,7 +143,13 @@ const SecondPage = ({
     } else if (addPersonType === "child") {
       const updatedChildren = [...childDetails];
       if (age >= 18) {
-        alert("Please enter age Less than 18");
+        showAlert({
+          title: "Failed!",
+          text: "Please enter age Less than 18",
+          icon: "error",
+          timer: 3000,
+        });
+        // alert("Please enter age Less than 18");
         return;
       }
       if (currentVisitorIndex !== null) {
@@ -181,32 +200,74 @@ const SecondPage = ({
     });
 
     if (remainingAdults !== 0) {
-      alert(`Please Add More ${remainingAdults} Adults`);
+      showAlert({
+        title: "Failed!",
+        text:`Please Add More ${remainingAdults} Adults`,
+        icon: "error",
+        timer: 3000,
+      });
+      // alert(`Please Add More ${remainingAdults} Adults`);
       return;
     }
     if (remainingChildren !== 0) {
-      alert(`Please Add More ${remainingChildren} Adults`);
+      showAlert({
+        title: "Failed!",
+        text:`Please Add More ${remainingChildren} Adults`,
+        icon: "error",
+        timer: 3000,
+      });
+      // alert(`Please Add More ${remainingChildren} Adults`);
       return;
     }
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(communicationDetails.email)) {
-      alert("Please Fill correct Email");
+      showAlert({
+        title: "Failed!",
+        text:`Please Fill correct Email`,
+        icon: "error",
+        timer: 3000,
+      });
+      // alert("Please Fill correct Email");
       return;
     }
     if (communicationDetails.mobile.length !== 10) {
-      alert("Please Fill correct Mobile Number");
+      showAlert({
+        title: "Failed!",
+        text:`Please Fill correct Mobile Number`,
+        icon: "error",
+        timer: 3000,
+      });
+      // alert("Please Fill correct Mobile Number");
       return;
     }
     if (!identityProof.person) {
-      alert("Please Fill correct identityProof");
+      showAlert({
+        title: "Failed!",
+        text:`Please Fill correct identityProof`,
+        icon: "error",
+        timer: 3000,
+      });
+      // alert("Please Fill correct identityProof");
       return;
     }
     if (!identityProof.proofType) {
-      alert("Please Fill correct proofType");
+      showAlert({
+        title: "Failed!",
+        text:`Please Fill correct proofType`,
+        icon: "error",
+        timer: 3000,
+      });
+      // alert("Please Fill correct proofType");
       return;
     }
     if (!identityProof.proofNumber) {
-      alert("Please Fill correct proof Number");
+      showAlert({
+        title: "Failed!",
+        text:`Please Fill correct proof Number`,
+        icon: "error",
+        timer: 3000,
+      });
+      // alert("Please Fill correct proof Number");
       return;
     }
 
@@ -239,7 +300,13 @@ const SecondPage = ({
       return;
     }
     if (identityProof.proofType === "bank") {
-      alert("Bank proof is not allowed.");
+      showAlert({
+        title: "Failed!",
+        text:`Bank proof is not allowed.`,
+        icon: "error",
+        timer: 3000,
+      });
+      // alert("Bank proof is not allowed.");
       return;
     } else {
       // const allDetails = {

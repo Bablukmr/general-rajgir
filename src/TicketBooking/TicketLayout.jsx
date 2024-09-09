@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import CounterTicketLayout from "./CounterTicketLayout";
 import axios from "axios";
 import { Route, Routes } from "react-router-dom";
+import Swal from "sweetalert2";
 
 function TicketLayout() {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -152,7 +153,15 @@ function TicketLayout() {
   const percentage = (timeLeft / 540) * 100;
   const minutes = Math.floor(timeLeft / 60);
   const seconds = timeLeft % 60;
-
+  const showAlert = ({ title, text, icon, timer }) => {
+    Swal.fire({
+      title: title,
+      text: text,
+      icon: icon,
+      timer: timer,
+      timerProgressBar: !!timer,
+    });
+  };
   return (
     <>
       {/* {isAuthenticated ? (
@@ -221,6 +230,7 @@ function TicketLayout() {
             setClildprice={setClildprice}
             selectedPAckageName={selectedPAckageName}
             setSelectedPAckageName={setSelectedPAckageName}
+            showAlert={showAlert}
           />
         )}
         {currentPage === "second" && (
@@ -257,6 +267,7 @@ function TicketLayout() {
             setClildprice={setClildprice}
             selectedPAckageName={selectedPAckageName}
             setSelectedPAckageName={setSelectedPAckageName}
+            showAlert={showAlert}
           />
         )}
         {currentPage === "third" && (
@@ -295,6 +306,7 @@ function TicketLayout() {
             setSelectedPAckageName={setSelectedPAckageName}
             totalExperiancePrice={totalExperiancePrice}
             setTotalExperiancePrice={setTotalExperiancePrice}
+            showAlert={showAlert}
           />
         )}
       </div>

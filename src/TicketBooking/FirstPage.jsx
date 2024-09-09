@@ -175,8 +175,10 @@ function FirstPage({
   setClildprice,
   selectedPAckageName,
   setSelectedPAckageName,
+  showAlert
 }) {
   // console.log(selectedPAckageName, "selectedPAckageNameselectedPAckageName");
+// console.log(selectedTimeSlot,"selectedTimeSlotselectedTimeSlot");
 
   const [openPersonDialog, setOpenPersonDialog] = useState(false);
 
@@ -199,10 +201,18 @@ function FirstPage({
     setAdultsPrice(adult_price);
     setSelectedTimeSlot(null);
     if (!visitingDate) {
-      alert("Visiting Date Required");
+      showAlert({
+        title: "Failed!",
+        text: "Visiting Date required",
+        icon: "error",
+        timer: 3000,
+      });
+      // alert("Visiting Date Required");
       return;
     }
+   
     if (child_allowed === 0 && persons.children > 0) {
+
       alert("Children are not Allowed on This Package");
       return;
     } else {
@@ -216,8 +226,24 @@ function FirstPage({
 
   const handleProceed = () => {
     if (!visitingDate) {
-      alert("Visiting Date required");
+      showAlert({
+        title: "Failed!",
+        text: "Visiting Date required",
+        icon: "error",
+        timer: 3000,
+      });
+      // alert("Visiting Date required");
       return;
+    }
+    if(!selectedTimeSlot){
+      showAlert({
+        title: "Failed!",
+        text: "TimeSlots Are Require",
+        icon: "error",
+        timer: 3000,
+      });
+      // alert("TimeSlots Are Require")
+      return
     }
     const selectedPackageData = {
       title: selectedPackage,

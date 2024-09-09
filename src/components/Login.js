@@ -14,6 +14,7 @@ import {
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import LoginIcon from "@mui/icons-material/Login";
 import { loginAsync } from "../redux/authSlice";
+import Swal from "sweetalert2";
 
 function Login({ setMobileOpen, appBarTextColor }) {
   const dispatch = useDispatch();
@@ -23,7 +24,15 @@ function Login({ setMobileOpen, appBarTextColor }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-
+  const showAlert = ({ title, text, icon, timer }) => {
+    Swal.fire({
+      title: title,
+      text: text,
+      icon: icon,
+      timer: timer,
+      timerProgressBar: !!timer,
+    });
+  };
   const handleOpen = () => {
     setOpen(true);
     setMobileOpen(false);
@@ -35,7 +44,13 @@ function Login({ setMobileOpen, appBarTextColor }) {
 
   const handleLogin = () => {
     if (!username || !password) {
-      alert("All Field Are Require");
+      showAlert({
+        title: "Failed!",
+        text:`All Field Are Require`,
+        icon: "error",
+        timer: 3000,
+      });
+      // alert("All Field Are Require");
       return;
     } else
       dispatch(loginAsync({ username, password })).then((result) => {

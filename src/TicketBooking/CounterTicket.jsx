@@ -206,6 +206,7 @@ function CounterTicket({
     setAdultsPrice(adult_price);
     setSelectedTimeSlot(null);
     if (!visitingDate) {
+      
       alert("Visiting Date Required");
       return;
     }
