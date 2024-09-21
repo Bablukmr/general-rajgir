@@ -58,6 +58,9 @@ function Header() {
 
   const routes = [
     { name: "Home", path: "/" },
+    { name: "AboutUs", path: "/aboutus" },
+    { name: "How To Reach", path: "/howtoreach" },
+    { name: "Term & Conditions", path: "/tac" },
     // Add more routes as needed
   ];
 

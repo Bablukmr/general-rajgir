@@ -63,7 +63,7 @@ const PersonAddDialog = ({
             </div>
           </div>
           <div>
-            <div className="font-bold">INFANTS (below 2y)</div>
+            <div className="font-bold">INFANTS (30 Day to 2 years)</div>
             <div className="grid grid-cols-4 md:grid-cols-7 gap-3 mt-2">
               {[...Array(noOfInfants + 1).keys()].map((n) => (
                 <Button

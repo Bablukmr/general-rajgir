@@ -310,7 +310,7 @@ function FirstPage({
               Book Your Tickets
             </h1>
             <h1 className="text-[#A56822] text-3xl text-start ">
-              for a Safari Adventure!
+              for a Safari Adventure at Rajgir !
             </h1>
             <div className="w-full mt-9 flex gap-4 items-center justify-start">
               <div className="bg-white w-[440px] md:w-[220px] p-2 rounded-full shadow-xl flex flex-col items-start justify-center outline-none">
