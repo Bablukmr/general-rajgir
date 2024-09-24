@@ -7,6 +7,8 @@ import Header from "./components/Header";
 import Footer from "./components/footer";
 import { checkAuth } from "./redux/authSlice";
 import TicketSearch from "./components/TicketSearch";
+import Zooinfo from "./components/page/About";
+import Howtoreach from "./components/page/Howtoreach";
 
 function App() {
   const dispatch = useDispatch();
@@ -23,6 +25,8 @@ function App() {
       {/* <SafariBanner /> */}
       <Routes>
         <Route path="/*" element={<TicketLayout />} />
+        <Route path="/aboutus/zooinfo" element={<Zooinfo />} />
+        <Route path="/howtoreach" element={<Howtoreach />} />
         {!isAuthenticated && (
           <Route path="/downloadticket" element={
             <div className="w-screen">

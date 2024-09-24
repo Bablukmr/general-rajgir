@@ -24,12 +24,14 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ConfirmationNumberIcon from "@mui/icons-material/ConfirmationNumber";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import Logout from "@mui/icons-material/Logout";
-import Login from "./Login";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { logout } from "../redux/authSlice";
 
 function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorSubEl, setAnchorSubEl] = useState(null);
+  const [mobileSubMenu, setMobileSubMenu] = useState(null);
   const theme = useTheme();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -56,12 +58,30 @@ function Header() {
     setAnchorEl(null);
   };
 
+  const handleSubMenuOpen = (event) => {
+    setAnchorSubEl(event.currentTarget);
+  };
+
+  const handleSubMenuClose = () => {
+    setAnchorSubEl(null);
+  };
+
+  const handleMobileSubMenuOpen = (index) => {
+    setMobileSubMenu(mobileSubMenu === index ? null : index);
+  };
+
   const routes = [
     { name: "Home", path: "/" },
-    { name: "AboutUs", path: "/aboutus" },
+    {
+      name: "AboutUs",
+      path: "#",
+      subitems: [
+        { name: "Info about Zoo", path: "/aboutus/zooinfo" },
+        { name: "Info about Nature", path: "/aboutus/natureinfo" },
+      ],
+    },
     { name: "How To Reach", path: "/howtoreach" },
     { name: "Term & Conditions", path: "/tac" },
-    // Add more routes as needed
   ];
 
   const drawer = (
@@ -74,29 +94,37 @@ function Header() {
       <div className="flex flex-col items-start ml-2">
         <List>
           {routes.map((route, index) => (
-            <ListItem
-              button
-              key={index}
-              component={Link}
-              to={route.path}
-              onClick={handleLinkClick} // Close drawer when link is clicked
-            >
-              <ListItemText primary={route.name} />
-            </ListItem>
+            <React.Fragment key={index}>
+              <ListItem
+                button
+                component={Link}
+                to={route.path}
+                onClick={handleLinkClick}
+              >
+                <ListItemText primary={route.name} />
+                {route.subitems && (
+                  <IconButton onClick={() => handleMobileSubMenuOpen(index)}>
+                    <ArrowDropDownIcon />
+                  </IconButton>
+                )}
+              </ListItem>
+              {route.subitems &&
+                mobileSubMenu === index &&
+                route.subitems.map((subitem, subIndex) => (
+                  <ListItem
+                    key={subIndex}
+                    button
+                    component={Link}
+                    to={subitem.path}
+                    sx={{ pl: 4 }}
+                    onClick={handleLinkClick}
+                  >
+                    <ListItemText primary={subitem.name} />
+                  </ListItem>
+                ))}
+            </React.Fragment>
           ))}
         </List>
-        {/* {isAuthenticated ? (
-          <Button
-            sx={{ textTransform: "none" }}
-            variant="outlined"
-            onClick={handleLogout}
-            startIcon={<Logout />}
-          >
-            Logout
-          </Button>
-        ) : (
-          <Login setMobileOpen={setMobileOpen} />
-        )} */}
         <Button
           sx={{ textTransform: "none", mt: 2 }}
           variant="outlined"
@@ -151,63 +179,52 @@ function Header() {
                 }}
               >
                 {routes.map((route, index) => (
-                  <Button
-                    key={index}
-                    component={Link}
-                    to={route.path}
-                    sx={{
-                      color: theme.palette.text.primary,
-                      textTransform: "none",
-                    }}
-                    onClick={handleLinkClick} // Close drawer when link is clicked
-                  >
-                    {route.name}
-                  </Button>
-                ))}
-                {/* {isAuthenticated ? (
-                  <div>
-                    <Typography sx={{ mr: 2 }}>{user?.name}</Typography>
-                    <IconButton
-                      color="inherit"
-                      onClick={handleMenuOpen}
-                      sx={{ p: 0 }}
-                    >
-                      <Avatar alt={user?.name} src={user?.avatarUrl} />
-                    </IconButton>
-                    <Menu
-                      anchorEl={anchorEl}
-                      open={Boolean(anchorEl)}
-                      onClose={handleMenuClose}
-                      sx={{ mt: "45px" }}
-                    >
-                      <MenuItem
-                        onClick={() => {
-                          navigate("/profile");
-                          handleMenuClose();
+                  <div key={index}>
+                    {!route.subitems ? (
+                      <Button
+                        component={Link}
+                        to={route.path}
+                        sx={{
+                          color: theme.palette.text.primary,
+                          textTransform: "none",
                         }}
+                        onClick={handleLinkClick}
                       >
-                        <ListItemIcon>
-                          <AccountCircle fontSize="small" />
-                        </ListItemIcon>
-                        Profile
-                      </MenuItem>
-                      <Divider />
-                      <MenuItem
-                        onClick={() => {
-                          handleLogout();
-                          handleMenuClose();
-                        }}
-                      >
-                        <ListItemIcon>
-                          <Logout fontSize="small" />
-                        </ListItemIcon>
-                        Logout
-                      </MenuItem>
-                    </Menu>
+                        {route.name}
+                      </Button>
+                    ) : (
+                      <>
+                        <Button
+                          sx={{
+                            color: theme.palette.text.primary,
+                            textTransform: "none",
+                          }}
+                          onClick={handleSubMenuOpen}
+                        >
+                          {route.name}
+                          <ArrowDropDownIcon />
+                        </Button>
+                        <Menu
+                          anchorEl={anchorSubEl}
+                          open={Boolean(anchorSubEl)}
+                          onClose={handleSubMenuClose}
+                          keepMounted
+                        >
+                          {route.subitems.map((subitem, subIndex) => (
+                            <MenuItem
+                              key={subIndex}
+                              component={Link}
+                              to={subitem.path}
+                              onClick={handleSubMenuClose}
+                            >
+                              {subitem.name}
+                            </MenuItem>
+                          ))}
+                        </Menu>
+                      </>
+                    )}
                   </div>
-                ) : (
-                  <Login setMobileOpen={setMobileOpen} />
-                )} */}
+                ))}
                 <Button
                   sx={{ textTransform: "none" }}
                   variant="outlined"
@@ -216,13 +233,6 @@ function Header() {
                 >
                   Download Ticket
                 </Button>
-                <Box
-                  sx={{ flexGrow: 1, display: "flex", alignItems: "center" }}
-                >
-                  <Link to={"/"}>
-                    <img src="/naturelogo.png" alt="Logo" width={190} />
-                  </Link>
-                </Box>
               </Box>
             </Toolbar>
           </div>

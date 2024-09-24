@@ -37,12 +37,12 @@ function SafariOption({
   // console.log(more);
   return (
     <Card
-      className={`w-full border ${colorClass} relative cursor-pointer`}
+      className={`w-full shadow-xl border-4 ${colorClass} relative cursor-pointer`}
       onClick={onClick}
     >
       <div
         className={`w-full h-full mb-2 ${
-          isSelected ? "bg-[#f4f1f1] " : "bg-white"
+          isSelected ? "bg-[#e2dbdb] " : "bg-white"
         }`}
       >
         {isPopular ? (
@@ -61,8 +61,11 @@ function SafariOption({
             ))}
           </Slider>
 
-          <Card className="w-full p-2">
-            <div className="flex justify-center gap-2 mb-2">
+          <Card
+            className="w-full p-2"
+            style={{ backgroundColor: isSelected ? "#e2dbdb" : "white" }}
+          >
+            <div className="flex justify-center gap-2 mb-2 ">
               <div className="w-[60%]">
                 <Typography variant="h6" component="h2" className="font-bold">
                   {title}
@@ -72,7 +75,7 @@ function SafariOption({
                 </Typography>
               </div>
 
-              <div className="text-[#2E9325] my-2 w-[40%]">
+              <div className="text-[#2E9325] my-2 w-[40%] ">
                 <div className="flex items-center gap-1 justify-center">
                   <div className="text-6xl">₹</div>
                   <div className="flex p-0 m-0 flex-col gap-0">
@@ -175,10 +178,10 @@ function FirstPage({
   setClildprice,
   selectedPAckageName,
   setSelectedPAckageName,
-  showAlert
+  showAlert,
 }) {
   // console.log(selectedPAckageName, "selectedPAckageNameselectedPAckageName");
-// console.log(selectedTimeSlot,"selectedTimeSlotselectedTimeSlot");
+  // console.log(selectedTimeSlot,"selectedTimeSlotselectedTimeSlot");
 
   const [openPersonDialog, setOpenPersonDialog] = useState(false);
 
@@ -210,9 +213,8 @@ function FirstPage({
       // alert("Visiting Date Required");
       return;
     }
-   
-    if (child_allowed === 0 && persons.children > 0) {
 
+    if (child_allowed === 0 && persons.children > 0) {
       alert("Children are not Allowed on This Package");
       return;
     } else {
@@ -235,7 +237,7 @@ function FirstPage({
       // alert("Visiting Date required");
       return;
     }
-    if(!selectedTimeSlot){
+    if (!selectedTimeSlot) {
       showAlert({
         title: "Failed!",
         text: "TimeSlots Are Require",
@@ -243,7 +245,7 @@ function FirstPage({
         timer: 3000,
       });
       // alert("TimeSlots Are Require")
-      return
+      return;
     }
     const selectedPackageData = {
       title: selectedPackage,
@@ -390,7 +392,9 @@ function FirstPage({
               isPopular={pkg.is_popular}
               tooltipDetails={`Price of Per Adults ₹${pkg.adult_price} and for Per Child ₹${pkg.child_price}`}
               colorClass={
-                selectedPackage === pkg.id ? "border-blue-500 border-2" : "border-white"
+                selectedPackage === pkg.id
+                  ? "border-blue-500 border-2"
+                  : "border-white"
               }
               isSelected={selectedPackage === pkg.id}
               onClick={() =>
@@ -412,10 +416,11 @@ function FirstPage({
         <div className="w-full my-4">
           <Card className="p-4">
             <label className="text-[#042D03] text-[18px] font-bold">
-              Select Your Safari Time Slot
+              Select Time Slot
             </label>
             <p className="text-black text-[12px] font-medium">
-              Reserve Your Safari Adventure: Book Your Preferred Time Slot Now!
+              Visitor are advised to report boarding point 30 minutes prior to
+              the reserve slot
             </p>
             <div className="flex flex-wrap md:flex-row flex-col mt-3 w-full gap-2">
               {filteredTimeSlots.map((slot) => (
@@ -439,18 +444,17 @@ function FirstPage({
         </div>
 
         <div className="w-full flex justify-center">
-        <div className="flex w-full flex-col items-center p-4 bg-white shadow-sm rounded-lg">
-              
-          <Button
-            sx={{ textTransform: "none" }}
-            variant="contained"
-            color="primary"
-            onClick={handleProceed}
-            disabled={!selectedPackage}
-            className="py-2 px-8"
-          >
-            Proceed
-          </Button>
+          <div className="flex w-full flex-col items-center p-4 bg-white shadow-sm rounded-lg">
+            <Button
+              sx={{ textTransform: "none" }}
+              variant="contained"
+              color="primary"
+              onClick={handleProceed}
+              disabled={!selectedPackage}
+              className="py-2 px-8"
+            >
+              Proceed
+            </Button>
           </div>
         </div>
       </div>
