@@ -95,18 +95,21 @@ const Zooinfo = () => {
       </div>
 
       {/* Call to Action Section */}
-      <div className="bg-gray-800 py-16">
-        <div className="max-w-7xl mx-auto text-center text-white">
-          <h2 className="text-3xl font-extrabold">Join Us in Our Mission</h2>
-          <p className="mt-4 text-lg">
-            Help us conserve wildlife by getting involved with NewZoo. Learn how you can support our cause and make a difference.
+      <div className="bg-green-600 py-10">
+        <div className="max-w-7xl mx-auto text-center">
+          <h2 className="text-3xl font-extrabold text-white">
+            Plan Your Visit !
+          </h2>
+          <p className="mt-4 text-lg text-white">
+            Whether you're coming by bus, train, or flight, Rajgir Zoo & Nature
+            Safari is ready to offer you an unforgettable experience!
           </p>
           <div className="mt-8">
             <a
-              href="/support-us"
-              className="px-8 py-3 bg-green-500 text-white rounded-md hover:bg-green-700"
+              href="/"
+              className="px-8 py-3 bg-white text-green-600 rounded-md hover:bg-gray-200"
             >
-              Support Us
+              Book Tickets Now
             </a>
           </div>
         </div>

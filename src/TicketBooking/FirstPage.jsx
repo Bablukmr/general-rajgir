@@ -10,6 +10,7 @@ import dayjs from "dayjs";
 import { CheckCircle, Person } from "@mui/icons-material";
 import CheckMobileHook480 from "../components/checkMobile";
 import InfoIcon from "@mui/icons-material/Info";
+import { useNavigate } from "react-router-dom";
 
 function SafariOption({
   title,
@@ -34,11 +35,12 @@ function SafariOption({
   };
   const mobile = CheckMobileHook480();
   const [more, setMore] = useState("hidden");
+  const Navigate =useNavigate()
   // console.log(more);
   return (
     <Card
       className={`w-full shadow-xl border-4 ${colorClass} relative cursor-pointer`}
-      onClick={onClick}
+      // onClick={onClick}
     >
       <div
         className={`w-full h-full mb-2 ${
@@ -96,6 +98,17 @@ function SafariOption({
                 </Tooltip>
               </div>
             </div>
+            <div className="flex items-center justify-between gap-1">
+            <Button
+              sx={{ textTransform: "none", }}
+              variant="contained"
+              color="success"
+              fullWidth
+              className="py-2 mt-4"
+              onClick={()=>Navigate("/moreinfo")}
+            >
+              More Info
+            </Button>
             <Button
               sx={{ textTransform: "none" }}
               variant="contained"
@@ -109,6 +122,8 @@ function SafariOption({
             >
               Select Plan
             </Button>
+            </div>
+           
           </Card>
         </div>
         {mobile && more !== "block" ? (

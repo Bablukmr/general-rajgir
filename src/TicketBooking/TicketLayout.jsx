@@ -9,6 +9,7 @@ import CounterTicketLayout from "./CounterTicketLayout";
 import axios from "axios";
 import { Route, Routes } from "react-router-dom";
 import Swal from "sweetalert2";
+import { Close, More, RampRight } from "@mui/icons-material";
 
 function TicketLayout() {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -162,6 +163,7 @@ function TicketLayout() {
       timerProgressBar: !!timer,
     });
   };
+  const [sidebar, setsidebar] = useState(false);
   return (
     <>
       {/* {isAuthenticated ? (
@@ -309,7 +311,65 @@ function TicketLayout() {
             showAlert={showAlert}
           />
         )}
+        <div className="bg-white shadow-md z-10 fixed right-0 md:right-10 rounded-md bottom-2 px-2 py-2 flex flex-col gap-[1px] items-center justify-center w-fit">
+          <h1 className="text-base font-medium text-[#2E9325]">
+            Total: {totalExperiancePrice}
+          </h1>
+          <p
+            onClick={() => setsidebar(true)}
+            className="underline cursor-pointer text-blue-800 text-sm font-thin"
+          >
+            View Details <RampRight />
+          </p>
+        </div>
+
+        <div
+          className={`bg-blue-700 ${
+            sidebar ? "block" : "hidden"
+          } shadow-md h-screen  w-[400px] fixed right-0 rounded-md bottom-2 z-20`}
+        >
+          <div className="bg-white relative w-full h-full mt-3 flex flex-col gap-[1px] ">
+            <div
+              onClick={() => setsidebar(false)}
+              className="absolute top-[50px] m-2 p-1 cursor-pointer left-0 text-black"
+            >
+              <Close />
+            </div>
+            <div className="flex flex-col gap-[6px] mt-[80px] p-4 w-full justify-start items-start">
+              <h1 className="text-lg font-semibold">Your Ticket Summary</h1>
+              <p className="border-b text-base font-normal">
+                Selected Package: {selectedPAckageName}
+              </p>
+              <p className="border-b text-base font-normal">
+                Number of Adults: {persons.adults}
+              </p>
+              <p className="border-b text-base font-normal">
+                Number of Children: {persons.children}
+              </p>
+              <p className="border-b text-base font-normal">
+                Selected Time Slot: {selectedTimeSlotString}
+              </p>
+              <p className="border-b text-base font-normal">
+                Selected Time Slot:{" "}
+                {visitingDate && visitingDate.format("YYYY-MM-DD")}
+              </p>
+              <div className="bg-white shadow-md z-10 absolute right-0 md:right-10 rounded-md bottom-2 px-2 py-2 flex flex-col gap-[1px] items-center justify-center w-fit">
+                <h1 className="text-base font-medium text-[#2E9325]">
+                  Total: {totalExperiancePrice}
+                </h1>
+                <p
+                  onClick={() => setsidebar(true)}
+                  className="underline cursor-pointer text-blue-800 text-sm font-thin"
+                >
+                  View Details <RampRight />
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+
+      {/* </div> */}
 
       {/* )} */}
     </>

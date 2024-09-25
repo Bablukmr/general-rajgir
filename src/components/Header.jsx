@@ -22,8 +22,6 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import ConfirmationNumberIcon from "@mui/icons-material/ConfirmationNumber";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import Logout from "@mui/icons-material/Logout";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { logout } from "../redux/authSlice";
 
@@ -41,8 +39,10 @@ function Header() {
     setMobileOpen(!mobileOpen);
   };
 
-  const handleLinkClick = () => {
-    setMobileOpen(false); // Close the drawer when a link is clicked
+  const handleLinkClick = (hasSubitems) => {
+    if (!hasSubitems) {
+      setMobileOpen(false); // Close the drawer only if there are no subitems
+    }
   };
 
   const handleLogout = () => {
@@ -73,15 +73,15 @@ function Header() {
   const routes = [
     { name: "Home", path: "/" },
     {
-      name: "AboutUs",
+      name: "About Us",
       path: "#",
       subitems: [
-        { name: "Info about Zoo", path: "/aboutus/zooinfo" },
-        { name: "Info about Nature", path: "/aboutus/natureinfo" },
+        { name: "Zoo Safari", path: "/aboutus/zooinfo" },
+        { name: "Nature Safari", path: "/aboutus/natureinfo" },
       ],
     },
     { name: "How To Reach", path: "/howtoreach" },
-    { name: "Term & Conditions", path: "/tac" },
+    { name: "Term & Conditions", path: "/t&c" },
   ];
 
   const drawer = (
@@ -97,9 +97,9 @@ function Header() {
             <React.Fragment key={index}>
               <ListItem
                 button
-                component={Link}
-                to={route.path}
-                onClick={handleLinkClick}
+                component={route.subitems ? "div" : Link}
+                to={route.subitems ? undefined : route.path}
+                onClick={() => handleLinkClick(!!route.subitems)}
               >
                 <ListItemText primary={route.name} />
                 {route.subitems && (
@@ -117,7 +117,7 @@ function Header() {
                     component={Link}
                     to={subitem.path}
                     sx={{ pl: 4 }}
-                    onClick={handleLinkClick}
+                    onClick={() => setMobileOpen(false)}
                   >
                     <ListItemText primary={subitem.name} />
                   </ListItem>
@@ -188,7 +188,7 @@ function Header() {
                           color: theme.palette.text.primary,
                           textTransform: "none",
                         }}
-                        onClick={handleLinkClick}
+                        onClick={() => handleLinkClick(false)}
                       >
                         {route.name}
                       </Button>

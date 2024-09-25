@@ -103,7 +103,7 @@ function Howtoreach() {
       <div className="bg-green-600 py-10">
         <div className="max-w-7xl mx-auto text-center">
           <h2 className="text-3xl font-extrabold text-white">
-            Plan Your Visit Today!
+            Plan Your Visit !
           </h2>
           <p className="mt-4 text-lg text-white">
             Whether you're coming by bus, train, or flight, Rajgir Zoo & Nature
@@ -111,7 +111,7 @@ function Howtoreach() {
           </p>
           <div className="mt-8">
             <a
-              href="/book-tickets"
+              href="/"
               className="px-8 py-3 bg-white text-green-600 rounded-md hover:bg-gray-200"
             >
               Book Tickets Now

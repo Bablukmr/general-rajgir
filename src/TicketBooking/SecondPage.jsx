@@ -16,6 +16,10 @@ import {
   DialogTitle,
   DialogContent,
   Dialog,
+  FormLabel,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import dayjs from "dayjs";
@@ -26,6 +30,8 @@ import CheckMobileHook480 from "../components/checkMobile";
 import BookingInfo from "../components/PrintTicketGenaral";
 import ReactToPrint from "react-to-print";
 import axios from "axios";
+
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 
 const SecondPage = ({
   admin,
@@ -54,7 +60,7 @@ const SecondPage = ({
   packages,
   adultsPrice,
   childPrice,
-  showAlert
+  showAlert,
 }) => {
   const adults = persons?.adults || 0;
   const children = persons?.children || 0;
@@ -64,11 +70,11 @@ const SecondPage = ({
 
   const [openAddPerson, setOpenAddPerson] = useState(false);
   const [currentVisitorIndex, setCurrentVisitorIndex] = useState(null);
-  const [visitorDetails, setVisitorDetails] = useState({
-    name: "",
-    gender: "",
-    age: "",
-  });
+  // const [visitorDetails, setVisitorDetails] = useState({
+  //   name: "",
+  //   gender: "",
+  //   age: "",
+  // });
   const printRef = useRef();
   const [bookingData, setBookingData] = useState(null);
   const [isPaymentSuccessful, setIsPaymentSuccessful] = useState(false);
@@ -101,9 +107,9 @@ const SecondPage = ({
     setCurrentVisitorIndex(null);
   };
 
-  const handleVisitorChange = (field, value) => {
-    setVisitorDetails({ ...visitorDetails, [field]: value });
-  };
+  // const handleVisitorChange = (field, value) => {
+  //   setVisitorDetails({ ...visitorDetails, [field]: value });
+  // };
 
   const handleVisitorSubmit = () => {
     const { name, gender, age } = visitorDetails;
@@ -122,7 +128,6 @@ const SecondPage = ({
     if (addPersonType === "adult") {
       const updatedAdults = [...adultDetails];
       if (age < 18) {
-        
         alert("Please enter age more than 18");
         return;
       }
@@ -138,7 +143,6 @@ const SecondPage = ({
     } else if (addPersonType === "child") {
       const updatedChildren = [...childDetails];
       if (age >= 18) {
-       
         alert("Please enter age Less than 18");
         return;
       }
@@ -192,7 +196,7 @@ const SecondPage = ({
     if (remainingAdults !== 0) {
       showAlert({
         title: "Failed!",
-        text:`Please Add More ${remainingAdults} Adults`,
+        text: `Please Add More ${remainingAdults} Adults`,
         icon: "error",
         timer: 3000,
       });
@@ -202,7 +206,7 @@ const SecondPage = ({
     if (remainingChildren !== 0) {
       showAlert({
         title: "Failed!",
-        text:`Please Add More ${remainingChildren} Adults`,
+        text: `Please Add More ${remainingChildren} Adults`,
         icon: "error",
         timer: 3000,
       });
@@ -213,7 +217,7 @@ const SecondPage = ({
     if (!emailPattern.test(communicationDetails.email)) {
       showAlert({
         title: "Failed!",
-        text:`Please Fill correct Email`,
+        text: `Please Fill correct Email`,
         icon: "error",
         timer: 3000,
       });
@@ -223,7 +227,7 @@ const SecondPage = ({
     if (communicationDetails.mobile.length !== 10) {
       showAlert({
         title: "Failed!",
-        text:`Please Fill correct Mobile Number`,
+        text: `Please Fill correct Mobile Number`,
         icon: "error",
         timer: 3000,
       });
@@ -233,7 +237,7 @@ const SecondPage = ({
     if (!identityProof.person) {
       showAlert({
         title: "Failed!",
-        text:`Please Fill correct identityProof`,
+        text: `Please Fill correct identityProof`,
         icon: "error",
         timer: 3000,
       });
@@ -243,7 +247,7 @@ const SecondPage = ({
     if (!identityProof.proofType) {
       showAlert({
         title: "Failed!",
-        text:`Please Fill correct proofType`,
+        text: `Please Fill correct proofType`,
         icon: "error",
         timer: 3000,
       });
@@ -253,7 +257,7 @@ const SecondPage = ({
     if (!identityProof.proofNumber) {
       showAlert({
         title: "Failed!",
-        text:`Please Fill correct proof Number`,
+        text: `Please Fill correct proof Number`,
         icon: "error",
         timer: 3000,
       });
@@ -292,7 +296,7 @@ const SecondPage = ({
     if (identityProof.proofType === "bank") {
       showAlert({
         title: "Failed!",
-        text:`Bank proof is not allowed.`,
+        text: `Bank proof is not allowed.`,
         icon: "error",
         timer: 3000,
       });
@@ -416,11 +420,59 @@ const SecondPage = ({
     if (selectedPackage === 3) return slot.timeslot_for === 3;
     return false;
   });
+
   function handleBack() {
     setAdultDetails([]);
     setChildDetails([]);
     handlePreviousPage();
   }
+  const [visitorDetails, setVisitorDetails] = useState(
+    Array(adults).fill({ name: "", gender: "", error: false })
+  );
+  const [expanded, setExpanded] = useState(0); // Controls which accordion is open
+  const [isAllFilled, setIsAllFilled] = useState(false);
+  const handleVisitorChange = (index, field, value) => {
+    const updatedDetails = [...visitorDetails];
+    updatedDetails[index] = { ...updatedDetails[index], [field]: value };
+
+    // Remove the error state if the user starts filling the form
+    if (field === "name" || field === "gender") {
+      updatedDetails[index].error =
+        !updatedDetails[index].name || !updatedDetails[index].gender;
+    }
+
+    setVisitorDetails(updatedDetails);
+
+    // Check if all fields are filled
+    const allFilled = updatedDetails.every(
+      (details) => details.name !== "" && details.gender !== ""
+    );
+    setIsAllFilled(allFilled);
+
+    // Open next accordion automatically if current is filled, but only if it's not already the last one
+    if (
+      updatedDetails[index].name &&
+      updatedDetails[index].gender &&
+      expanded === index &&
+      index < adults - 1 &&
+      field !== "name"
+    ) {
+      setExpanded(index + 1);
+    }
+  };
+  // Handle accordion expansion
+  const handleAccordionChange = (index) => (event, isExpanded) => {
+    setExpanded(isExpanded ? index : false);
+  };
+  const handleValidation = (index) => {
+    const updatedDetails = [...visitorDetails];
+    if (!updatedDetails[index].name || !updatedDetails[index].gender) {
+      updatedDetails[index].error = true;
+    } else {
+      updatedDetails[index].error = false;
+    }
+    setVisitorDetails(updatedDetails);
+  };
   return (
     <>
       {!isPaymentSuccessful ? (
@@ -479,153 +531,95 @@ const SecondPage = ({
                 </div>
               </AccordionDetails>
             </Accordion>
-           
 
-            <div className="flex flex-col items-start p-4 bg-white  rounded-lg">
+            <div className="w-full flex items-start flex-col gap-4">
               <p className="text-[#4691F2] text-lg">Visitor Details</p>
-              <div className="flex gap-2 mt-2">
-                <span className="inline-block px-3 py-1 bg-[#e0eafc] text-[#4691F2] rounded-full text-sm font-semibold">
-                  Adults: {remainingAdults}/{adults}
-                </span>
-                <span className="inline-block px-3 py-1 bg-[#e0eafc] text-[#4691F2] rounded-full text-sm font-semibold">
-                  Children: {remainingChildren}/{children}
-                </span>
-              </div>
-
-              <div className="">
-                <div className="grid grid-cols-1 gap-1 mt-2">
-                  {adultDetails.length > 0 && (
-                    <span className="w-full border-b border-dashed border-[#b2aeae]">
-                      Adults
-                    </span>
-                  )}
-                  {adultDetails.map((adult, index) => (
-                    <div
-                      key={index}
-                      className="flex bg-white border rounded-lg"
-                    >
-                      <div className="px-2 py-[2px] ">
-                        <div className=" gap-2 flex justify-between items-center">
-                          <p className="flex">Name: {adult.name}</p>
-                          <p>Gender: {adult.gender}</p>
-                          <p>Age: {adult.age}</p>
-                          <div
-                            onClick={() => handleOpenAddPerson("adult", index)}
-                            className="text-blue-700 p-2 cursor-pointer"
-                          >
-                            <Edit />
-                          </div>
-                        </div>
-                      </div>
+              {Array.from({ length: persons.adults }).map((_, index) => (
+                <Accordion
+                  key={index}
+                  expanded={expanded === index}
+                  onChange={handleAccordionChange(index)}
+                  className="w-full"
+                >
+                  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                    <div className="flex flex-col gap-0">
+                      <p className="text-[#4691F2] text-lg">
+                        Adult {index + 1}
+                      </p>
+                      <p className="text-[#a3a4a6] text-xs">
+                        Visitor {index + 1} |{" "}
+                        {visitorDetails[index].name || "Name not entered"} |{" "}
+                        {visitorDetails[index].gender || "Gender not selected"}
+                      </p>
                     </div>
-                  ))}
-                </div>
-                <div className="grid grid-cols-1 gap-1 mt-2">
-                  {childDetails.length > 0 && (
-                    <span className="w-full border-b border-dashed border-[#b2aeae]">
-                      Childs
-                    </span>
-                  )}
-                  {childDetails.map((child, index) => (
-                    <div
-                      key={index}
-                      className="flex bg-white shadow-sm border rounded-lg"
-                    >
-                      <div className="px-2 py-[2px]">
-                        <div className="flex justify-between items-center gap-2">
-                          <p className="flex">Name: {child.name}</p>
-                          <p>Gender: {child.gender}</p>
-                          <p>Age: {child.age}</p>
-                          <div
-                            onClick={() => handleOpenAddPerson("child", index)}
-                            className="text-blue-700 p-2 cursor-pointer"
-                          >
-                            <Edit />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div className="flex gap-2 mb-4">
-                {adultDetails.length < adults && (
-                  <button
-                    className="px-4 mt-3 py-2 bg-gradient-to-r from-blue-400 to-blue-600 text-white shadow-md hover:shadow-lg hover:from-blue-500 hover:to-blue-700 border border-transparent rounded-md transition-all duration-300 transform hover:scale-105"
-                    onClick={() => handleOpenAddPerson("adult")}
-                  >
-                    + Add Adult
-                  </button>
-                )}
-                {childDetails.length < children && (
-                  <button
-                    className="px-4 mt-3 py-2 bg-gradient-to-r from-blue-400 to-blue-600 text-white shadow-md hover:shadow-lg hover:from-blue-500 hover:to-blue-700 border border-transparent rounded-md transition-all duration-300 transform hover:scale-105"
-                    onClick={() => handleOpenAddPerson("child")}
-                  >
-                    + Add Child
-                  </button>
-                )}
-              </div>
-              <Dialog open={openAddPerson} onClose={handleCloseAddPerson}>
-                <DialogTitle>
-                  {addPersonType === "adult" ? "Add Adult" : "Add Child"}
-                </DialogTitle>
-                <DialogContent>
-                  <TextField
-                    margin="dense"
-                    label="Name"
-                    fullWidth
-                    value={visitorDetails.name}
-                    onChange={(e) =>
-                      handleVisitorChange("name", e.target.value)
-                    }
-                  />
-                  <FormControl fullWidth margin="dense">
-                    <InputLabel>Gender</InputLabel>
-                    <Select
-                      label="Gender"
-                      value={visitorDetails.gender}
-                      onChange={(e) =>
-                        handleVisitorChange("gender", e.target.value)
-                      }
-                    >
-                      {genderOptions.map((option) => (
-                        <MenuItem key={option.value} value={option.value}>
-                          {option.label}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                  <TextField
-                    margin="dense"
-                    label="Age"
-                    type="number"
-                    fullWidth
-                    value={visitorDetails.age}
-                    onChange={(e) => handleVisitorChange("age", e.target.value)}
-                  />
-                </DialogContent>
-                <DialogActions>
-                  <Button
-                    sx={{ textTransform: "none" }}
-                    onClick={handleCloseAddPerson}
-                    color="primary"
-                  >
-                    Cancel
-                  </Button>
-                  <Button
-                    sx={{ textTransform: "none" }}
-                    onClick={handleVisitorSubmit}
-                    color="primary"
-                  >
-                    Save
-                  </Button>
-                </DialogActions>
-              </Dialog>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <FormControl style={{ paddingLeft: "10px" }}>
+                      <RadioGroup
+                        row
+                        name={`gender-${index}`}
+                        value={visitorDetails[index].gender}
+                        onChange={(e) =>
+                          handleVisitorChange(index, "gender", e.target.value)
+                        }
+                      >
+                        <FormControlLabel
+                          value="male"
+                          control={<Radio />}
+                          label="Male"
+                        />
+                        <FormControlLabel
+                          value="female"
+                          control={<Radio />}
+                          label="Female"
+                        />
+                        <FormControlLabel
+                          value="other"
+                          control={<Radio />}
+                          label="Other"
+                        />
+                      </RadioGroup>
+                      {visitorDetails[index].error &&
+                        !visitorDetails[index].gender && (
+                          <Typography color="error">
+                            Please select a gender
+                          </Typography>
+                        )}
+                      <TextField
+                        size="small"
+                        margin="normal"
+                        label="Full Name"
+                        type="text"
+                        fullWidth
+                        value={visitorDetails[index].name}
+                        onChange={(e) =>
+                          handleVisitorChange(index, "name", e.target.value)
+                        }
+                        onBlur={() => handleValidation(index)} // Validate on blur
+                      />
+                      {visitorDetails[index].error &&
+                        !visitorDetails[index].name && (
+                          <Typography color="error">
+                            Please enter a valid name
+                          </Typography>
+                        )}
+                    </FormControl>
+                  </AccordionDetails>
+                </Accordion>
+              ))}
+              {/* <Button
+                variant="contained"
+                color="primary"
+                disabled={!isAllFilled}
+                onClick={() => console.log("Form submitted!", visitorDetails)}
+              >
+                Save and Continue
+              </Button> */}
             </div>
+
             <div className="flex flex-col items-start p-4 bg-white shadow-sm   rounded-lg">
               <p className="text-[#4691F2] mb-2 text-lg">
-                Communication Details
+                Primary Communication Details
               </p>
               <div className="flex items-center justify-between gap-5">
                 <div className="flex items-center flex-col md:flex-row  justify-between gap-5 ">
@@ -668,7 +662,7 @@ const SecondPage = ({
                         handleIdentityChange("person", e.target.value);
                       }}
                     >
-                      {adultDetails.map((adult, index) => (
+                      {visitorDetails.map((adult, index) => (
                         <MenuItem key={index} value={adult.name}>
                           {adult.name}
                         </MenuItem>
@@ -718,6 +712,7 @@ const SecondPage = ({
                   Back
                 </Button>
                 <Button
+                disabled={!isAllFilled}
                   sx={{ textTransform: "none" }}
                   variant="contained"
                   color="primary"
@@ -727,48 +722,11 @@ const SecondPage = ({
                   Save & Continue
                 </Button>
               </div>
-              {/* ) : (
-                <div className="flex w-full items-center justify-center gap-2 p-4 bg-white shadow-sm rounded-lg">
-                  <Button
-                    sx={{ textTransform: "none" }}
-                    variant="contained"
-                    color="error"
-                    onClick={handleBack}
-                    startIcon={<ArrowLeft />}
-                  >
-                    Back
-                  </Button>
-                  <Button
-                    sx={{ textTransform: "none" }}
-                    onClick={handlePayment}
-                    variant="contained"
-                    color="success"
-                    
-                    // className="my-4 px-3"
-                  >
-                    Pay Now
-                  </Button>
-                </div>
-              )} */}
             </div>
           </div>
         </div>
       ) : (
-        <div className="flex flex-col md:px-[20px] xl:px-[200px] w-full justify-center items-start p-4 bg-gray-100 mt-16">
-          {/* <div className="w-full p-4 bg-white shadow-lg rounded-lg mb-4">
-            <BookingInfo ref={printRef} data={bookingData} />
-          </div>
-          <ReactToPrint
-            trigger={() => (
-              <Button variant="contained" color="primary">
-                Print Ticket
-              </Button>
-            )}
-            content={() => printRef.current}
-            documentTitle="Ticket Booking Confirmation"
-            pageStyle="@media print { body { margin: 0; } }"
-          /> */}
-        </div>
+        <div className="flex flex-col md:px-[20px] xl:px-[200px] w-full justify-center items-start p-4 bg-gray-100 mt-16"></div>
       )}
     </>
   );
