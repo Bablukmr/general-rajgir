@@ -60,6 +60,10 @@ const PersonAddDialog = ({
                   {n}
                 </Button>
               ))}
+            </div>{" "}
+            <div className="font-thin text-[12px] text-[#a18d8d] mt-1">
+              No child below 6 years will be allowed in glass bridge , hence no
+              separate ticket is required
             </div>
           </div>
           <div>

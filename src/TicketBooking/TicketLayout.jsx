@@ -56,6 +56,9 @@ function TicketLayout() {
   const [finalSelectedAndAddData, setFinalSelectedAndAddData] = useState({
     persons,
   });
+  const [visitorDetails, setVisitorDetails] = useState(
+    Array(persons?.adults || 0).fill({ name: "", gender: "", error: false })
+  );
 
   useEffect(() => {
     axios
@@ -270,6 +273,8 @@ function TicketLayout() {
             selectedPAckageName={selectedPAckageName}
             setSelectedPAckageName={setSelectedPAckageName}
             showAlert={showAlert}
+            visitorDetails={visitorDetails}
+            setVisitorDetails={setVisitorDetails}
           />
         )}
         {currentPage === "third" && (
@@ -309,6 +314,8 @@ function TicketLayout() {
             totalExperiancePrice={totalExperiancePrice}
             setTotalExperiancePrice={setTotalExperiancePrice}
             showAlert={showAlert}
+            visitorDetails={visitorDetails}
+            setVisitorDetails={setVisitorDetails}
           />
         )}
         <div className="bg-white shadow-md z-10 fixed right-0 md:right-10 rounded-md bottom-2 px-2 py-2 flex flex-col gap-[1px] items-center justify-center w-fit">

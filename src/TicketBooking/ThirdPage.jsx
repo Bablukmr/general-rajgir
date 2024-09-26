@@ -211,7 +211,7 @@ function ThirdPage({
   selectedTimeSlotString,
   packages,
   totalExperiancePrice, 
-  setTotalExperiancePrice
+  setTotalExperiancePrice,visitorDetails
 }) {
   // console.log(selectedPAckageName,"selectedPackageName");
   const [selectedExperienceCounts, setSelectedExperienceCounts] = useState({
@@ -279,7 +279,7 @@ function ThirdPage({
       const response = await axios.post(
         `https://zoo-api.nextindiainitiative.com/public/api/v1/booking?${queryParams}`,
         {
-          total_person: totalPersons,
+          total_person: visitorDetails,
         }
       );
 
