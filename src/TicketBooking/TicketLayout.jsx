@@ -320,8 +320,10 @@ function TicketLayout() {
         )}
         <div className="bg-white shadow-md z-10 fixed right-0 md:right-10 rounded-md bottom-2 px-2 py-2 flex flex-col gap-[1px] items-center justify-center w-fit">
           <h1 className="text-base font-medium text-[#2E9325]">
-            Total: {totalExperiancePrice ===0 ? adultsPrice * persons.adults + persons.children: totalExperiancePrice}
-            {/* {totalExperiancePrice} */}
+            Total:
+            {totalExperiancePrice === 0
+              ? adultsPrice * persons.adults + persons.children
+              : totalExperiancePrice}
           </h1>
           <p
             onClick={() => setsidebar(true)}
@@ -364,7 +366,6 @@ function TicketLayout() {
                 <h1 className="text-base font-medium text-[#2E9325]">
                   Total: {adultsPrice}
                   {/* {totalExperiancePrice} */}
-                  
                 </h1>
                 <p
                   onClick={() => setsidebar(true)}
