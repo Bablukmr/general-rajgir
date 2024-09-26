@@ -9,12 +9,7 @@ function TermAndCondition() {
           Terms and Conditions
         </h1>
         <p className="text-gray-600 mb-8">
-          Please read these Terms and Conditions ("Terms", "Terms and
-          Conditions") carefully before using the Rajgir Zoo Safari & Nature
-          Safari website operated by Fillip Technologies ("us", "we", or "our").
-          By accessing or using the website, you agree to be bound by these
-          terms. If you disagree with any part of the terms, then you may not
-          access the service.
+     
         </p>
 
         {/* General Terms */}
