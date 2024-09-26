@@ -322,7 +322,7 @@ function TicketLayout() {
           <h1 className="text-base font-medium text-[#2E9325]">
             Total:
             {totalExperiancePrice === 0
-              ? adultsPrice * persons.adults + persons.children
+              ? adultsPrice * persons.adults + persons.children * childPrice
               : totalExperiancePrice}
           </h1>
           <p
