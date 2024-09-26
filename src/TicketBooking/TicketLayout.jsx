@@ -329,11 +329,10 @@ function TicketLayout() {
             View Details <RampRight />
           </p>
         </div>
-
         <div
           className={`bg-blue-700 ${
             sidebar ? "block" : "hidden"
-          } shadow-md h-screen  w-[400px] fixed right-0 rounded-md bottom-2 z-20`}
+          } shadow-md h-screen w-[100%]  md:w-[25%] fixed right-0 rounded-md bottom-2 z-20`}
         >
           <div className="bg-white relative w-full h-full mt-3 flex flex-col gap-[1px] ">
             <div
