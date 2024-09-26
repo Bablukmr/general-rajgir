@@ -320,7 +320,8 @@ function TicketLayout() {
         )}
         <div className="bg-white shadow-md z-10 fixed right-0 md:right-10 rounded-md bottom-2 px-2 py-2 flex flex-col gap-[1px] items-center justify-center w-fit">
           <h1 className="text-base font-medium text-[#2E9325]">
-            Total: {totalExperiancePrice}
+            Total: {totalExperiancePrice ===0 ? adultsPrice * persons.adults + persons.children: totalExperiancePrice}
+            {/* {totalExperiancePrice} */}
           </h1>
           <p
             onClick={() => setsidebar(true)}
@@ -332,7 +333,7 @@ function TicketLayout() {
         <div
           className={`bg-blue-700 ${
             sidebar ? "block" : "hidden"
-          } shadow-md h-screen w-[100%]  md:w-[25%] fixed right-0 rounded-md bottom-2 z-20`}
+          } shadow-md h-screen w-[100%]  md:w-[35%] lg:w-[30%] xl:w-[25%] fixed right-0 rounded-md bottom-2 z-20`}
         >
           <div className="bg-white relative w-full h-full mt-3 flex flex-col gap-[1px] ">
             <div
@@ -361,7 +362,9 @@ function TicketLayout() {
               </p>
               <div className="bg-white shadow-md z-10 absolute right-0 md:right-10 rounded-md bottom-2 px-2 py-2 flex flex-col gap-[1px] items-center justify-center w-fit">
                 <h1 className="text-base font-medium text-[#2E9325]">
-                  Total: {totalExperiancePrice}
+                  Total: {adultsPrice}
+                  {/* {totalExperiancePrice} */}
+                  
                 </h1>
                 <p
                   onClick={() => setsidebar(true)}
