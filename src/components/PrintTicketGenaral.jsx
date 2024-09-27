@@ -66,7 +66,7 @@ const BookingInfo = React.forwardRef(({ data }, ref) => {
           <thead className="bg-gray-200 text-gray-600">
             <tr>
               <th className="py-2 px-4 text-left">Full Name</th>
-              <th className="py-2 px-4 text-left">Age</th>
+              {/* <th className="py-2 px-4 text-left">Age</th> */}
               <th className="py-2 px-4 text-left">Gender</th>
             </tr>
           </thead>
@@ -74,7 +74,7 @@ const BookingInfo = React.forwardRef(({ data }, ref) => {
             {total_person.map((person, index) => (
               <tr key={index} className="border-t">
                 <td className="py-2 px-4">{person.full_name}</td>
-                <td className="py-2 px-4">{person.age}</td>
+                {/* <td className="py-2 px-4">{person.age}</td> */}
                 <td className="py-2 px-4">{person.gender}</td>
               </tr>
             ))}
