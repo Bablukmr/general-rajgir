@@ -57,7 +57,7 @@ function TicketLayout() {
     persons,
   });
   const [visitorDetails, setVisitorDetails] = useState(
-    Array(persons?.adults || 0).fill({ name: "", gender: "", error: false })
+    Array(persons?.adults || 0).fill({ name: "", gender: "",age:25, error: false })
   );
 
   useEffect(() => {
