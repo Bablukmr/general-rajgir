@@ -243,10 +243,11 @@ const SecondPage = ({
               </div>
 
               <p className="text-[#4691F2] my-2 text-lg mt-2">Identity Proof</p>
-              <div className="flex items-center flex-col md:flex-row gap-5">
+              <div className="flex w-full items-center flex-col md:flex-row gap-5">
                 <FormControl fullWidth>
                   <InputLabel>Person</InputLabel>
                   <Select
+                  fullWidth
                     className="md:w-[200px]"
                     label="Person"
                     size="small"
@@ -265,6 +266,7 @@ const SecondPage = ({
                 <FormControl fullWidth>
                   <InputLabel>Proof Type</InputLabel>
                   <Select
+                  fullWidth
                     className="md:w-[200px]"
                     size="small"
                     label="Proof Type"

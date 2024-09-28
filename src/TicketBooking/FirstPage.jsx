@@ -438,11 +438,13 @@ function FirstPage({
             </p>
             <div className="flex flex-wrap md:flex-row flex-col mt-3 w-full gap-2">
               {/* <div className="grid grid-cols-2 mt-3 w-full gap-2"> */}
-              <div
-                className={`p-2 w-fit border border-[#808080] text-[#808080] rounded-md cursor-pointer text-center`}
-              >
-                09:00 AM - 10:00 AM
-              </div>
+              {filteredTimeSlots.length > 1 && (
+                <div
+                  className={`p-2 w-fit border border-[#808080] text-[#808080] rounded-md cursor-pointer text-center`}
+                >
+                  09:00 AM - 10:00 AM
+                </div>
+              )}
               {filteredTimeSlots.map((slot) => (
                 <div
                   key={slot.id}
@@ -460,11 +462,13 @@ function FirstPage({
                 </div>
               ))}
 
-              <div
-                className={`p-2 w-fit border border-[#808080] text-[#808080] rounded-md cursor-pointer text-center`}
-              >
-                02:00 AM - 03:00 AM
-              </div>
+              {filteredTimeSlots.length > 1 && (
+                <div
+                  className={`p-2 w-fit border border-[#808080] text-[#808080] rounded-md cursor-pointer text-center`}
+                >
+                  02:00 AM - 03:00 AM
+                </div>
+              )}
             </div>
           </Card>
         </div>
