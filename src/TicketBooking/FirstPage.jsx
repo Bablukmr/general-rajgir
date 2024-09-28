@@ -35,7 +35,7 @@ function SafariOption({
   };
   const mobile = CheckMobileHook480();
   const [more, setMore] = useState("hidden");
-  const Navigate =useNavigate()
+  const Navigate = useNavigate();
   // console.log(more);
   return (
     <Card
@@ -99,31 +99,30 @@ function SafariOption({
               </div>
             </div>
             <div className="flex items-center justify-between gap-1">
-            <Button
-              sx={{ textTransform: "none", }}
-              variant="contained"
-              color="success"
-              fullWidth
-              className="py-2 mt-4"
-              onClick={()=>Navigate("/moreinfo")}
-            >
-              More Info
-            </Button>
-            <Button
-              sx={{ textTransform: "none" }}
-              variant="contained"
-              color="primary"
-              fullWidth
-              className="py-2 mt-4"
-              onClick={(e) => {
-                e.stopPropagation();
-                onClick();
-              }}
-            >
-              Select Plan
-            </Button>
+              <Button
+                sx={{ textTransform: "none" }}
+                variant="contained"
+                color="success"
+                fullWidth
+                className="py-2 mt-4"
+                onClick={() => Navigate("/moreinfo")}
+              >
+                More Info
+              </Button>
+              <Button
+                sx={{ textTransform: "none" }}
+                variant="contained"
+                color="primary"
+                fullWidth
+                className="py-2 mt-4"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onClick();
+                }}
+              >
+                Select Plan
+              </Button>
             </div>
-           
           </Card>
         </div>
         {mobile && more !== "block" ? (
@@ -438,6 +437,12 @@ function FirstPage({
               the reserve slot
             </p>
             <div className="flex flex-wrap md:flex-row flex-col mt-3 w-full gap-2">
+              {/* <div className="grid grid-cols-2 mt-3 w-full gap-2"> */}
+              <div
+                className={`p-2 w-fit border border-[#808080] text-[#808080] rounded-md cursor-pointer text-center`}
+              >
+                09:00 AM - 10:00 AM
+              </div>
               {filteredTimeSlots.map((slot) => (
                 <div
                   key={slot.id}
@@ -447,13 +452,19 @@ function FirstPage({
                   }}
                   className={`p-2 w-fit border ${
                     selectedTimeSlot === slot.id
-                      ? "border-blue-700 text-white bg-blue-700"
-                      : "border-blue-700 text-blue-700"
+                      ? "border-[#008000] text-white bg-[#008000]"
+                      : "border-[#008000] text-[#008000]"
                   }  rounded-md cursor-pointer text-center`}
                 >
                   {slot.timeslot}
                 </div>
               ))}
+
+              <div
+                className={`p-2 w-fit border border-[#808080] text-[#808080] rounded-md cursor-pointer text-center`}
+              >
+                02:00 AM - 03:00 AM
+              </div>
             </div>
           </Card>
         </div>
